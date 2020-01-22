@@ -1,0 +1,9 @@
+.idea/
+node_modules/
+
+server.key
+server.crt
+server.csr
+server.pem
+
+.env

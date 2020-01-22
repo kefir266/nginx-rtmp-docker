@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  nginx:
+    container_name: nginx-rtmp
+    build:
+      context: ./nginx-docker
+    volumes:
+      - ./nginx-docker/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "1935:1935"
