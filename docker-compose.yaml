@@ -6,6 +6,17 @@ services:
       context: ./nginx-docker
     volumes:
       - ./nginx-docker/nginx.conf:/usr/local/nginx/nginx.conf
+      - ./hls-player/dist:/var/www/public/
     ports:
       - "80:80"
       - "1935:1935"
+#  hls-player:
+#    build:
+#      context: ./hls-player
+#    volumes:
+#      - type: volume
+#        source: www-content
+#        target: /app/dist
+#volumes:
+#  www-content:
+#    external: false
