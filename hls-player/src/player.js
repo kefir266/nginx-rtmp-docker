@@ -4,14 +4,23 @@ const idInterval = setInterval(function () {
   video = document.getElementById('video');
   if (video) {
     clearInterval(idInterval);
+    let hlsUrl = 'http://localhost/live/test.m3u8';
+    const params = getUrlVars();
+    if (params.hlsurl) {
+      hlsUrl = params.hlsurl;
+    }
+    const conf = Object.assign({
+      "debug": true,
+      "enableWorker": true,
+      "liveBackBufferLength": 100,
+      "startPosition": 10,
+      "liveSyncDurationCount": 1,
+      "liveMaxLatencyDurationCount": 2
+    }, params);
+
     if(Hls.isSupported()) {
-      var hls = new Hls({
-        "debug": true,
-        "enableWorker": true,
-        "liveBackBufferLength": 100,
-        "startPosition": 10
-      });
-      hls.loadSource('http://localhost/live/test.m3u8');
+      var hls = new Hls(conf);
+      hls.loadSource(hlsUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED,function() {
         video.play();
@@ -23,7 +32,7 @@ const idInterval = setInterval(function () {
       // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
 // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
     else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = 'http://localhost/live/test.m3u8';
+      video.src = hlsUrl;
       video.addEventListener('loadedmetadata',function() {
         video.play();
       });
@@ -31,5 +40,12 @@ const idInterval = setInterval(function () {
   }
 }, 100);
 
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value;
+  });
+  return vars;
+}
 
 module.exports = video;
