@@ -13,7 +13,7 @@ const idInterval = setInterval(function () {
       "debug": true,
       "enableWorker": true,
       "liveBackBufferLength": 100,
-      "startPosition": 10,
+      "startPosition": 1000,
       "liveSyncDurationCount": 1,
       "liveMaxLatencyDurationCount": 2
     }, params);

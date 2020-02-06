@@ -1,0 +1,22 @@
+version: '3.2'
+services:
+  nginx:
+    container_name: nginx-rtmp
+    build:
+      context: ./nginx-docker
+    volumes:
+      - ./nginx-docker/nginx.edge.conf:/usr/local/nginx/nginx.conf
+      - ./hls-player/dist:/var/www/public/
+    ports:
+      - "80:80"
+      - "1935:1935"
+#  hls-player:
+#    build:
+#      context: ./hls-player
+#    volumes:
+#      - type: volume
+#        source: www-content
+#        target: /app/dist
+#volumes:
+#  www-content:
+#    external: false
