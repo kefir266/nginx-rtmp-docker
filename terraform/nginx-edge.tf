@@ -1,11 +1,15 @@
-resource "aws_instance" "aws_nginx_instance" {
+resource "aws_instance" "aws_nginx_edge_instance" {
   ami           = var.AMIS[var.AWS_REGION]
-  instance_type = "t2.medium"
+  instance_type = "t2.micro"
   key_name      = aws_key_pair.nginx-user-key.key_name
 
 
   subnet_id = aws_subnet.edge-subnet.id
-  vpc_security_group_ids = [aws_security_group.from_admin.id, aws_security_group.rtmp.id]
+  vpc_security_group_ids = [
+    aws_security_group.from_admin.id,
+    aws_security_group.http.id,
+    aws_security_group.rtmp.id
+  ]
 
   //  TODO maybe it's not the best approach. It would be make up in future
 //  provisioner "local-exec" {
