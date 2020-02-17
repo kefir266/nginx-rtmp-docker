@@ -1,5 +1,5 @@
 resource "aws_instance" "aws_nginx_edge_instance" {
-  ami           = var.AMIS[var.AWS_REGION]
+  ami           = var.edge-nginx-AMIS[var.AWS_REGION]
   instance_type = "t2.micro"
   key_name      = aws_key_pair.nginx-user-key.key_name
 

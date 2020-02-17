@@ -1,6 +1,6 @@
 resource "aws_instance" "aws_nginx_instance" {
-  ami           = var.AMIS[var.AWS_REGION]
-  instance_type = "t2.medium"
+  ami           = var.main-nginx-AMIS[var.AWS_REGION]
+  instance_type = "c5.xlarge"
   key_name      = aws_key_pair.nginx-user-key.key_name
 
 
