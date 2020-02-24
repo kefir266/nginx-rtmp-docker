@@ -1,6 +1,6 @@
 resource "digitalocean_loadbalancer" "hls" {
   name   = "loadbalancer-1"
-  region = "nyc3"
+  region = "ams3"
 
   forwarding_rule {
     entry_port     = 80
